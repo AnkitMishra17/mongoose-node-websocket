@@ -1,0 +1,49 @@
+<%- include("partials/header.ejs") %> 
+ <div class="mt-5 d-flex justify-content-center">
+    <form method="post" action="/" class="animated fadeIn slow" >
+        <div class="form-group">
+            <label for="Text">Input Text:</label>
+            <textarea class="form-control" name="textarea" id="textarea" rows="10"></textarea>
+        </div> 
+        <button type="submit" class="btn Random btn-warning w-100">Throw Random Word</button>   
+    </form>
+    </div>    
+
+<script>
+
+  //http://localhost:3000
+  const socket = io.connect('https://sugandh-internship-task.herokuapp.com/');
+
+  $('.Random').click((e)=>{
+    e.preventDefault();
+    const Input = $('#textarea').val();
+    const inputlength = Input.length;
+
+    if(!Input){
+      e.preventDefault();
+      alert('Please Enter Something');
+    }
+    else{
+      const inputtext = Input.trim().split(" ");
+      const arraylen = inputtext.length;
+
+      const min=0; 
+      const max=arraylen;  
+      const randomword = Math.floor(Math.random() * (max - min)) + min;
+
+      //if keeping account of each word from input:
+      // const location = Math.floor((randomword/arraylen)*100);
+      
+      //if keeping account of each character of the word from input
+      const n = Input.indexOf(inputtext[randomword]);
+      const location = Math.floor((n/inputlength)*100);
+
+      socket.emit('clicked',{
+          random: inputtext[randomword],
+          locfromstart: location,
+      });
+      $('#textarea').val("  ");
+    }
+  });
+</script>
+<%- include("partials/footer.ejs") %>

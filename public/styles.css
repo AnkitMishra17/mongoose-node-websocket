@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+form{
+    position: absolute;
+    height: 400px;
+    width: 60vw;
+    padding: 25px;
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    border-radius: 15px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.Output{
+    position: absolute;
+    width: 60vw;    
+    border-radius: 15px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+label{  
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+}

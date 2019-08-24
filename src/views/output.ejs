@@ -1,0 +1,43 @@
+<%- include("partials/header.ejs") %>
+<div class="mt-5 d-flex justify-content-center">
+<div class="table-responsive w-50 Output">
+<table class="table table-hover" id="myTable">
+    <thead>
+      <tr class=" table-secondary">
+        <th scope="col" >Timestamp</th>
+        <th scope="col" onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(1)')">Word<i class="fas fa-sort"></i></th>
+        <th scope="col">Location in text</th>
+      </tr>
+    </thead>
+    <tbody>
+            <% for(let i=0; i< Output.length;i++){ %>
+                <tr class="table-warning item">
+                  <td><%= Output[i].createdAt.toDateString() %></td>
+                  <td><%= Output[i].word %></td>
+                  <td><%= Output[i].location + "%" %></td>
+                </tr>
+               <% } %>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<script>
+    const socket = io.connect('https://s-task.herokuapp.com/');
+
+    socket.on('clicked',(data)=>{
+      console.log(data.createdAt.toString());
+      
+            $('tbody').append(`
+                <tr class="table-warning item">
+                    <td>${data.createdAt}</td>
+                    <td>${data.word}</td>
+                    <td>${data.location + " % "}</td>
+                </tr>
+            `);
+     });
+
+     
+</script>
+
+<%- include("partials/footer.ejs") %>
